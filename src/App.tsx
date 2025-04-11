@@ -1,3 +1,6 @@
+import './App.css';
+import { useState } from 'react';
+
 
 type Title = {
   title: string
@@ -32,11 +35,16 @@ function Header({ title }: Title) {
 }
 
 function App() {
+
+  const [status, setStatus] = useState("Open")
+
   return (
-    <>
+    <div>
+      <h1>The restaurant is {status}</h1>
+      <button onClick={() => setStatus("Close")}>Close restaurant</button>
       <Header title="Menu Page 😀" />
       <Main dishes={dishObject} />
-    </>
+    </div >
   );
 }
 

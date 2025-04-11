@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, Reducer, useReducer } from 'react';
 
 
 type Title = {
@@ -7,7 +7,8 @@ type Title = {
 }
 
 type Dishes = {
-  dishes: { id: number, title: string }[]
+  dishes: { id: number, title: string }[];
+  onStatus: boolean;
 }
 
 const items = [
@@ -21,10 +22,13 @@ const dishObject = items.map((item, i) => ({
   title: item
 }))
 
-function Main({ dishes }: Dishes) {
+function Main({ dishes, onStatus }: Dishes) {
   return (
-    <ul>{dishes.map((dishes) => (
-      <li key={dishes.id}>{dishes.title}</li>))}</ul>
+    <>
+      <p>Restaurant is {onStatus ? "Open" : "Close"}</p>
+      <ul>{dishes.map((dishes) => (
+        <li key={dishes.id}>{dishes.title}</li>))}</ul>
+    </>
   );
 }
 
@@ -35,16 +39,18 @@ function Header({ title }: Title) {
 }
 
 function App() {
-
-  const [status, setStatus] = useState(true)
+  //useState
+  //const [status, setStatus] = useState(true)
+  //useReducer
+  const [status, toggle] = useReducer((status) => !status, true);
 
   return (
     <div>
       <h1>The restaurant is currently {status ? "Open" : "Close"}</h1>
-      <button onClick={() => setStatus(!status)}>
-        {status ? "Closed" : "Open"} restaurant</button>
+      <button onClick={toggle}>
+        {status ? "Close" : "Open"} restaurant</button>
       <Header title="Menu Page 😀" />
-      <Main dishes={dishObject} />
+      <Main dishes={dishObject} onStatus={status} />
     </div >
   );
 }

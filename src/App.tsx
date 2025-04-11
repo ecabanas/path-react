@@ -36,12 +36,13 @@ function Header({ title }: Title) {
 
 function App() {
 
-  const [status, setStatus] = useState("Open")
+  const [status, setStatus] = useState(true)
 
   return (
     <div>
-      <h1>The restaurant is {status}</h1>
-      <button onClick={() => setStatus("Close")}>Close restaurant</button>
+      <h1>The restaurant is currently {status ? "Open" : "Close"}</h1>
+      <button onClick={() => setStatus(!status)}>
+        {status ? "Closed" : "Open"} restaurant</button>
       <Header title="Menu Page 😀" />
       <Main dishes={dishObject} />
     </div >
